@@ -22,11 +22,7 @@ body {
     background-attachment: fixed; /* Fixe l'image de fond pour qu'elle ne bouge pas au défilement */
 }
 
-/* Le reste de ton CSS existant... */
 header {
-    background-color: rgba(0, 0, 0, 0.3); /* Un voile sombre sur l'en-tête */
-    padding: 20px 0; /* Ajuste le padding selon tes besoins */
-    margin-bottom: 30px; /* Conserve la marge du bas */
     backdrop-filter: blur(2px); /* Effet de flou derrière (support navigateur à vérifier) */
 }
 
@@ -35,7 +31,6 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 15px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Ombre au texte */
     font-size: 2.8em; /* Taille agrandie */
     padding: 10px 20px;
 }
@@ -45,7 +40,6 @@ h2 {
     font-size: 1.8em; /* Taille plus grande pour les noms */
     margin-top: 10px; /* Espace au-dessus du nom */
     margin-bottom: 5px; /* Espace en dessous du nom */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Légère ombre pour la lisibilité */
 }
 
 /* Style pour la page d'accueil */
