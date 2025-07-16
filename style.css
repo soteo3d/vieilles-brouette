@@ -38,6 +38,9 @@ h1, h2 {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Ajoute une ombre au texte pour le faire ressortir */
     font-size: 2.8em; /* Augmente la taille de la police */
     padding: 10px 20px; /* Ajoute un peu de padding autour du texte */
+    background-color: rgba(0, 0, 0, 0.4); /* Un voile sombre derrière le texte */
+    display: inline-block; /* Pour que le background-color s'applique uniquement au texte */
+    border-radius: 8px;
 }
 
 /* Style pour la page d'accueil */
