@@ -15,7 +15,7 @@ body {
     text-align: center;
     line-height: 1.6;
     overflow-x: hidden; /* Empêche le scroll horizontal */
-    background-image: src="img/bg.jpg"; 
+    background-image: url('img/bg.jpg'); 
     background-size: cover; /* Permet à l'image de couvrir toute la zone */
     background-position: center center; /* Centre l'image */
     background-repeat: no-repeat; /* Empêche l'image de se répéter */
