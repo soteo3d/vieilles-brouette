@@ -188,3 +188,69 @@ footer p {
     color: var(--color-text-dark); /* Garde-le noir car son conteneur est semi-transparent */
     margin: 0;
 }
+/* --- Styles pour la nouvelle section "Générateur de phrases" --- */
+.phrase-generator-section {
+    background-color: rgba(255, 255, 255, 0.9); /* Fond semi-transparent pour la lisibilité */
+    padding: 40px 20px; /* Plus de padding */
+    margin: 40px auto; /* Marge et centrage */
+    border-radius: 20px; /* Coins arrondis */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Ombre plus prononcée */
+    max-width: 700px; /* Largeur maximale */
+    text-align: center;
+    border: 3px solid var(--color-purple); /* Bordure violette */
+}
+
+.phrase-generator-section h2 {
+    color: var(--color-pink); /* Titre de la section en rose */
+    font-size: 2.2em;
+    margin-bottom: 25px;
+}
+
+.phrase-display-container {
+    background-color: rgba(var(--color-orange), 0.1); /* Fond très léger de l'orange */
+    border: 1px dashed var(--color-orange); /* Bordure en pointillés orange */
+    border-radius: 10px;
+    padding: 20px;
+    min-height: 80px; /* Hauteur minimale pour éviter le saut de contenu */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+#random-phrase {
+    font-size: 1.5em; /* Taille de la phrase */
+    font-weight: bold;
+    color: var(--color-text-dark);
+    margin: 0;
+}
+
+.action-button { /* Pour le bouton Générer */
+    background-color: var(--color-orange); /* Couleur orange pour le bouton */
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.action-button:hover {
+    background-color: darken(var(--color-orange), 10%);
+    transform: translateY(-2px);
+}
+
+/* Animations de fade-in/out */
+.fade-in {
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+}
+/* --- Fin des styles pour le générateur de phrases --- */
