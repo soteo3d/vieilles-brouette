@@ -41,6 +41,9 @@ h2 {
     margin-top: 10px; /* Espace au-dessus du nom */
     margin-bottom: 5px; /* Espace en dessous du nom */
 }
+p {
+    color:white;
+}
 
 /* Style pour la page d'accueil */
 .team-grid {
@@ -60,7 +63,7 @@ h2 {
     width: 200px; /* Taille légèrement ajustée */
     text-align: center;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
-    border: 2px solid var(--color-orange); /* Une bordure de couleur */
+    border: 5px solid var(--color-orange); /* Une bordure de couleur */
 }
 
 .team-member-card:hover {
@@ -96,7 +99,7 @@ h2 {
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    border: 5px solid #ff9800;
+    border: 8px solid #ff9800;
     margin-top: 20px;
 }
 .reaction-section {
