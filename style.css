@@ -15,7 +15,11 @@ body {
     text-align: center;
     line-height: 1.6;
     overflow-x: hidden; /* Empêche le scroll horizontal */
-    background: linear-gradient(to bottom right, var(--color-background-light), #f0f2f5); /* Un dégradé léger */
+    background-image: url('https://soteo3d.github.io/vieilles-brouette/img/bg.png'); /* L'URL de l'image générée */
+    background-size: cover; /* Permet à l'image de couvrir toute la zone */
+    background-position: center center; /* Centre l'image */
+    background-repeat: no-repeat; /* Empêche l'image de se répéter */
+    background-attachment: fixed; /* Fixe l'image de fond pour qu'elle ne bouge pas au défilement */
 }
 
 /* Le reste de ton CSS existant... */
