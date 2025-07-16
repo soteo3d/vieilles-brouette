@@ -24,7 +24,10 @@ body {
 
 /* Le reste de ton CSS existant... */
 header {
-    margin-bottom: 30px;
+    background-color: rgba(0, 0, 0, 0.3); /* Un voile sombre sur l'en-tête */
+    padding: 20px 0; /* Ajuste le padding selon tes besoins */
+    margin-bottom: 30px; /* Conserve la marge du bas */
+    backdrop-filter: blur(2px); /* Effet de flou derrière (support navigateur à vérifier) */
 }
 
 h1, h2 {
@@ -32,6 +35,9 @@ h1, h2 {
     text-transform: uppercase; /* Pour un look plus festif */
     letter-spacing: 2px;
     margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Ajoute une ombre au texte pour le faire ressortir */
+    font-size: 2.8em; /* Augmente la taille de la police */
+    padding: 10px 20px; /* Ajoute un peu de padding autour du texte */
 }
 
 /* Style pour la page d'accueil */
