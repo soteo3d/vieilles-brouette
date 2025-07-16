@@ -42,9 +42,22 @@ h2 {
     margin-bottom: 5px; /* Espace en dessous du nom */
 }
 p {
-    color:black;
+    font-size: 1.1em; /* Taille de police par défaut pour les paragraphes */
+    margin-bottom: 1em; /* Marge en bas pour espacer les paragraphes */
+    color: var(--color-text-dark); 
 }
-
+footer {
+    background-color: var(--color-purple); /* Ou une autre couleur sombre pour le fond du footer */
+    color: white; /* Couleur de texte par défaut pour le footer */
+    padding: 20px;
+    margin-top: 50px; /* Ajoute de l'espace au-dessus du footer */
+    text-align: center;
+}
+footer p {
+    color: white; /* Ici, on force le paragraphe DANS le footer à être blanc */
+    font-size: 0.9em; /* Peut-être un peu plus petit pour le copyright */
+    margin: 0; /* Retire les marges par défaut du paragraphe pour le footer */
+}
 /* Style pour la page d'accueil */
 .team-grid {
     display: flex;
@@ -169,3 +182,9 @@ p {
     transform: translateY(-3px);
 }
 
+#random-phrase {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--color-text-dark); /* Garde-le noir car son conteneur est semi-transparent */
+    margin: 0;
+}
