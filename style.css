@@ -15,7 +15,7 @@ body {
     text-align: center;
     line-height: 1.6;
     overflow-x: hidden; /* Empêche le scroll horizontal */
-    background-image: url('https://soteo3d.github.io/vieilles-brouette/img/bg.png'); /* L'URL de l'image générée */
+    background-image: src="img/Theo.jpg"; 
     background-size: cover; /* Permet à l'image de couvrir toute la zone */
     background-position: center center; /* Centre l'image */
     background-repeat: no-repeat; /* Empêche l'image de se répéter */
