@@ -1,1 +1,121 @@
+body {
+    font-family: sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
 
+header {
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: #3f51b5;
+}
+
+/* Style pour la page d'accueil */
+.team-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.team-member-card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    text-decoration: none;
+    color: #333;
+    width: 150px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.team-member-card:hover {
+    transform: translateY(-5px);
+}
+
+.team-member-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 3px solid #3f51b5;
+}
+
+/* Style pour les pages des amis */
+.back-button {
+    display: block;
+    text-align: left;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: #3f51b5;
+    font-weight: bold;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #ff9800;
+    margin-top: 20px;
+}
+
+.emoji-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.emoji-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.emoji-button {
+    font-size: 40px;
+    background: none;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.emoji-button:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.1);
+}
+
+.reaction-count {
+    margin-top: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #666;
+}
+
+.instagram-button {
+    display: inline-block;
+    background-color: #e4405f; /* Couleur Instagram */
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    margin-top: 40px;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.instagram-button:hover {
+    background-color: #d82b4a;
+}
