@@ -1,12 +1,23 @@
-body {
-    font-family: sans-serif;
-    background-color: #f0f2f5;
-    color: #333;
-    margin: 0;
-    padding: 20px;
-    text-align: center;
+:root {
+    --color-orange: #F0A523;
+    --color-pink: #E72A77;
+    --color-purple: #854D98;
+    --color-text-dark: #333;
+    --color-background-light: #f9f9f9;
 }
 
+body {
+    font-family: 'Arial', sans-serif; /* Tu peux choisir une autre police plus festive si tu veux */
+    background-color: var(--color-background-light); /* Fond clair pour le contraste */
+    color: var(--color-text-dark);
+    margin: 0;
+    padding: 0; /* On peut ajuster le padding sur des sections spécifiques */
+    text-align: center;
+    line-height: 1.6;
+    overflow-x: hidden; /* Empêche le scroll horizontal */
+}
+
+/* Le reste de ton CSS existant... */
 header {
     margin-bottom: 30px;
 }
