@@ -66,6 +66,8 @@ function loadEmojiCounts() {
 }
 
 // Fonction pour incrémenter le compteur d'un emoji spécifique
+// ... (ton code existant jusqu'à incrementEmojiCount)
+
 function incrementEmojiCount(emojiId) {
     let currentLocalCount = getLocalInteractionsCount(friendName);
 
@@ -77,26 +79,35 @@ function incrementEmojiCount(emojiId) {
 
     // Vérifie si la limite locale a été atteinte
     if (currentLocalCount >= currentMaxLimit) {
-        alert(`Tu as déjà réagi ${currentMaxLimit} fois pour ${friendName} ! Reviens plus tard.`);
-        return; // Arrête la fonction si la limite est atteinte
+        alert(`Limite locale atteinte (${currentMaxLimit}) pour ${friendName} !`); // Changement ici
+        return;
     }
 
-    // Référence à l'emoji spécifique dans la base de données
+    // Ajoute cet alert pour voir si on arrive bien ici AVANT la transaction
+    alert(`Tentative d'incrémentation pour ${emojiId} pour ${friendName}. Clics locaux actuels: ${currentLocalCount}`);
+
     const emojiRef = database.ref('reactions/' + friendName + '/' + emojiId);
 
-    // Utilise une transaction pour incrémenter le compteur de manière sécurisée
     emojiRef.transaction((currentCount) => {
-        return (currentCount || 0) + 1; // Incrémente le compteur ou commence à 1 si inexistant
+        return (currentCount || 0) + 1;
     }, (error, committed, snapshot) => {
         if (error) {
+            // Cet alert s'affichera si la transaction Firebase échoue
+            alert("ERREUR FIREBASE : " + error.message);
             console.error("La transaction Firebase a échoué :", error);
         } else if (committed) {
-            // Si la transaction Firebase a réussi, met à jour le compteur local
             setLocalInteractionsCount(friendName, currentLocalCount + 1);
+            alert(`Succès ! Clics locaux : ${currentLocalCount + 1}.`); // Changement ici
             console.log(`Interaction locale enregistrée pour ${friendName}. Total: ${currentLocalCount + 1}`);
+        } else {
+            // Ce cas arrive si la transaction est annulée par Firebase (conflit de données concurrents)
+            // mais elle sera retentée. Pour un seul clic, c'est rare.
+            alert("Transaction Firebase annulée (retentative) !");
         }
     });
 }
+
+// ... (le reste de ton script.js)
 
 // Code exécuté une fois que le DOM est complètement chargé
 document.addEventListener('DOMContentLoaded', () => {
