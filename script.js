@@ -1,20 +1,19 @@
-// La configuration de Firebase (assure-toi que ces valeurs sont exactes)
+// Configuration de Firebase (REMPLACE AVEC TES VRAIES INFOS DEPUIS LA CONSOLE FIREBASE)
+// Assure-toi que ces valeurs sont les EXACTES COPIES de ta console Firebase.
 const firebaseConfig = {
-  apiKey: "AIzaSyDoEbsTM4b3ZoBrJliTout9yIcl8bs62so",
-  authDomain: "vieilles-brouette.firebaseapp.com",
-  databaseURL: "https://vieilles-brouette-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "vieilles-brouette",
-  storageBucket: "vieilles-brouette.firebasestorage.app",
-  messagingSenderId: "194696608467",
-  appId: "1:194696608467:web:d95710877f0e3d2849f226",
-  measurementId: "G-9X5C4W7SKH"
+    apiKey: "AIzaSyDoEbsTM4b3ZoBrJliTout9yIcl8bs62so", // Ta clé API
+    authDomain: "vieilles-brouette.firebaseapp.com", // Ton domaine d'authentification
+    databaseURL: "https://vieilles-brouette-default-rtdb.europe-west1.firebasedatabase.app", // Ton URL de base de données
+    projectId: "vieilles-brouette", // Ton ID de projet
+    storageBucket: "vieilles-brouette.firebasestorage.app", // Ton bucket de stockage
+    messagingSenderId: "194696608467", // Ton ID d'expéditeur de messages
+    appId: "1:194696608467:web:d95710877f0e3d2849f226", // Ton ID d'application
+    measurementId: "G-9X5C4W7SKH" // Ton ID de mesure Google Analytics (si utilisé)
 };
 
-// Initialise Firebase - C'est la bonne façon avec le SDK "compat"
+// Initialise Firebase avec le SDK "compat" (via les scripts dans ton HTML)
+// 'firebase' est disponible globalement grâce aux balises <script> firebase-app-compat.js
 firebase.initializeApp(firebaseConfig); 
-// Note : Tu n'as plus besoin de 'const analytics = getAnalytics(app);' car tu n'as pas importé getAnalytics
-// ni de 'const app = initializeApp(firebaseConfig);'
-// La variable 'firebase' est déjà globale grâce aux scripts compat.js dans ton HTML.
 
 // Récupère une référence à la base de données
 const database = firebase.database();
@@ -51,10 +50,10 @@ function loadEmojiCounts() {
     friendRef.on('value', (snapshot) => {
         const data = snapshot.val() || {}; // Récupère les données, ou un objet vide si pas de données
 
-        // Sélectionne tous les éléments <span class="reaction-count"> sur la page
+        // Sélectionne TOUS les éléments <span class="reaction-count"> sur la page
         const reactionCountSpans = document.querySelectorAll('.reaction-count');
 
-        // Pour chaque span, met à jour son contenu avec la valeur correspondante de Firebase
+        // Pour chaque span trouvé, met à jour son contenu
         reactionCountSpans.forEach(span => {
             // Extrait l'ID de l'emoji depuis l'attribut 'id' du span (ex: 'count-laugh' -> 'laugh')
             const emojiId = span.id.replace('count-', '');
@@ -66,8 +65,6 @@ function loadEmojiCounts() {
 }
 
 // Fonction pour incrémenter le compteur d'un emoji spécifique
-// ... (ton code existant jusqu'à incrementEmojiCount)
-
 function incrementEmojiCount(emojiId) {
     let currentLocalCount = getLocalInteractionsCount(friendName);
 
@@ -79,77 +76,76 @@ function incrementEmojiCount(emojiId) {
 
     // Vérifie si la limite locale a été atteinte
     if (currentLocalCount >= currentMaxLimit) {
-        alert(`Limite locale atteinte (${currentMaxLimit}) pour ${friendName} !`); // Changement ici
-        return;
+        alert(`Tu as déjà réagi ${currentMaxLimit} fois pour ${friendName} ! Reviens plus tard.`);
+        return; // Arrête la fonction si la limite est atteinte
     }
 
-    // Ajoute cet alert pour voir si on arrive bien ici AVANT la transaction
-    alert(`Tentative d'incrémentation pour ${emojiId} pour ${friendName}. Clics locaux actuels: ${currentLocalCount}`);
-
+    // Référence à l'emoji spécifique dans la base de données
     const emojiRef = database.ref('reactions/' + friendName + '/' + emojiId);
 
+    // Utilise une transaction pour incrémenter le compteur de manière sécurisée
     emojiRef.transaction((currentCount) => {
-        return (currentCount || 0) + 1;
+        return (currentCount || 0) + 1; // Incrémente le compteur ou commence à 1 si inexistant
     }, (error, committed, snapshot) => {
         if (error) {
-            // Cet alert s'affichera si la transaction Firebase échoue
-            alert("ERREUR FIREBASE : " + error.message);
             console.error("La transaction Firebase a échoué :", error);
         } else if (committed) {
+            // Si la transaction Firebase a réussi, met à jour le compteur local
             setLocalInteractionsCount(friendName, currentLocalCount + 1);
-            alert(`Succès ! Clics locaux : ${currentLocalCount + 1}.`); // Changement ici
             console.log(`Interaction locale enregistrée pour ${friendName}. Total: ${currentLocalCount + 1}`);
-        } else {
-            // Ce cas arrive si la transaction est annulée par Firebase (conflit de données concurrents)
-            // mais elle sera retentée. Pour un seul clic, c'est rare.
-            alert("Transaction Firebase annulée (retentative) !");
         }
     });
 }
 
-// ... (le reste de ton script.js)
-
 // Code exécuté une fois que le DOM est complètement chargé
 document.addEventListener('DOMContentLoaded', () => {
-    // ... (ton code existant pour loadEmojiCounts)
+    // Charge les compteurs d'emojis au chargement de la page
+    // Cette fonction ne sera appelée que sur les pages d'amis et aigris, pas sur index.html
+    if (friendName && friendName !== "index") {
+        loadEmojiCounts();
+    }
+    
+    // VARIABLES ET LOGIQUE POUR LE SON SUR LA PAGE AIGRIS
+    let hasPlayedAudio = false; // Pour s'assurer que l'audio ne démarre qu'une fois par session
+    const aigrisAudio = document.getElementById('aigris-audio'); // Récupère l'élément audio (sera null si pas sur aigris.html)
 
     // Attache les écouteurs d'événements aux boutons d'emojis
     const emojiButtons = document.querySelectorAll('.emoji-button');
-    
-    // NOUVELLES VARIABLES ET LOGIQUE POUR LE SON
-    let hasPlayedAudio = false; // Pour s'assurer que l'audio ne démarre qu'une fois
-    const aigrisAudio = document.getElementById('aigris-audio'); // Récupère l'élément audio
-
     emojiButtons.forEach(button => {
         button.addEventListener('click', () => {
             const emojiId = button.getAttribute('data-emoji-id');
             if (emojiId) {
-                // Incrémente le compteur comme d'habitude
+                // Appelle la fonction d'incrémentation du compteur
                 incrementEmojiCount(emojiId);
 
-                // LOGIQUE SPÉCIFIQUE AU BOUTON RAGEBAIT POUR LE SON
+                // LOGIQUE SPÉCIFIQUE POUR LE SON DU BOUTON "RAGEBAIT" SUR LA PAGE "AIGRIS"
+                // On vérifie :
+                // 1. Si c'est le bouton "ragebait" qui a été cliqué.
+                // 2. Si on est bien sur la page "aigris".
+                // 3. Si l'élément audio existe sur la page.
+                // 4. Si la musique n'a pas déjà été lancée.
                 if (emojiId === 'ragebait' && friendName === 'aigris' && aigrisAudio && !hasPlayedAudio) {
                     aigrisAudio.play().then(() => {
                         console.log("Musique lancée avec succès !");
-                        hasPlayedAudio = true; // Marque comme joué
+                        hasPlayedAudio = true; // Marque le drapeau pour ne pas relancer
                     }).catch(error => {
-                        console.error("Erreur lors de la tentative de lecture de la musique :", error);
-                        // Ceci peut arriver si le navigateur bloque toujours, ou si l'utilisateur
-                        // n'a pas interagi assez pour lever la restriction.
+                        console.error("Erreur lors de la tentative de lecture de la musique (autoplay bloqué?) :", error);
+                        // Cet erreur est fréquente si le navigateur est très strict ou si l'utilisateur
+                        // n'a pas encore suffisamment interagi avec la page.
                     });
                 }
             }
         });
     });
 
-    // Optionnel : Gérer le bouton Instagram si nécessaire (le lien href le fait déjà)
+    // Gérer le bouton Instagram (s'il existe)
     const instagramButton = document.querySelector('.instagram-button');
     if (instagramButton) {
         instagramButton.addEventListener('click', (event) => {
-            // Si tu veux empêcher le comportement par défaut du lien ou ajouter une autre logique
-            // event.preventDefault();
+            // Le comportement par défaut du lien (href) suffit souvent.
+            // event.preventDefault(); // Décommenter si tu veux bloquer le lien et faire autre chose
             // console.log("Bouton Instagram cliqué !");
-            // window.open(instagramButton.href, '_blank');
+            // window.open(instagramButton.href, '_blank'); // Ouvrir dans un nouvel onglet
         });
     }
 });
