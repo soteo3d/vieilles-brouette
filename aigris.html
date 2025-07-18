@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Non, je suis aigri !</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="back-button">← Retour</a>
+        <h1>Non, je suis aigri ! 😠</h1>
+    </header>
+
+    <main class="reaction-section">
+        <p>Prépare-toi à la "rage bait" !</p>
+
+        <img src="img/aigris.gif" alt="GIF Aigri" class="aigris-media">
+
+        <audio controls loop class="aigris-media">
+            <source src="audio/aigris.mp3" type="audio/mpeg">
+            Votre navigateur ne supporte pas l'élément audio.
+        </audio>
+
+        <div class="emoji-grid">
+            <div class="emoji-item">
+                <button class="emoji-button" data-emoji-id="ragebait">😡</button>
+                <span class="reaction-count" id="count-ragebait">0</span>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Merci pour ta rage !</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
