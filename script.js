@@ -1,4 +1,13 @@
-
+const firebaseConfig = {
+  apiKey: "AIzaSyDoEbsTM4b3ZoBrJliTout9yIcl8bs62so",
+  authDomain: "vieilles-brouette.firebaseapp.com",
+  databaseURL: "https://vieilles-brouette-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "vieilles-brouette",
+  storageBucket: "vieilles-brouette.firebasestorage.app",
+  messagingSenderId: "194696608467",
+  appId: "1:194696608467:web:d95710877f0e3d2849f226",
+  measurementId: "G-9X5C4W7SKH"
+};
 // Initialise Firebase
 firebase.initializeApp(firebaseConfig);
 
