@@ -254,3 +254,12 @@ footer p {
     transition: opacity 0.3s ease-out;
 }
 /* --- Fin des styles pour le générateur de phrases --- */
+.aigris-media {
+    max-width: 100%; /* S'assure que le média ne dépasse pas la largeur du conteneur */
+    height: auto; /* Maintient les proportions */
+    display: block; /* Supprime l'espace sous l'image */
+    margin: 20px auto; /* Centre le média et ajoute de la marge */
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Légère ombre */
+}
+
