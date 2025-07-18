@@ -100,23 +100,33 @@ function incrementEmojiCount(emojiId) {
 
 // Code exécuté une fois que le DOM est complètement chargé
 document.addEventListener('DOMContentLoaded', () => {
-    // Charge les compteurs d'emojis au chargement de la page
-    // Cette fonction ne sera appelée que sur les pages d'amis et aigris
-    if (friendName && friendName !== "index") { // Si ce n'est pas la page d'accueil (index.html)
-        loadEmojiCounts();
-    }
-    // Note : le `friendName !== "aigris"` a été retiré de la première condition
-    // car on veut que loadEmojiCounts s'exécute pour 'aigris' aussi.
-    // La condition `if (friendName === "aigris")` est désormais redondante et peut être supprimée
-    // si la première condition est `friendName !== "index"`.
+    // ... (ton code existant pour loadEmojiCounts)
 
     // Attache les écouteurs d'événements aux boutons d'emojis
     const emojiButtons = document.querySelectorAll('.emoji-button');
+    
+    // NOUVELLES VARIABLES ET LOGIQUE POUR LE SON
+    let hasPlayedAudio = false; // Pour s'assurer que l'audio ne démarre qu'une fois
+    const aigrisAudio = document.getElementById('aigris-audio'); // Récupère l'élément audio
+
     emojiButtons.forEach(button => {
         button.addEventListener('click', () => {
             const emojiId = button.getAttribute('data-emoji-id');
             if (emojiId) {
+                // Incrémente le compteur comme d'habitude
                 incrementEmojiCount(emojiId);
+
+                // LOGIQUE SPÉCIFIQUE AU BOUTON RAGEBAIT POUR LE SON
+                if (emojiId === 'ragebait' && friendName === 'aigris' && aigrisAudio && !hasPlayedAudio) {
+                    aigrisAudio.play().then(() => {
+                        console.log("Musique lancée avec succès !");
+                        hasPlayedAudio = true; // Marque comme joué
+                    }).catch(error => {
+                        console.error("Erreur lors de la tentative de lecture de la musique :", error);
+                        // Ceci peut arriver si le navigateur bloque toujours, ou si l'utilisateur
+                        // n'a pas interagi assez pour lever la restriction.
+                    });
+                }
             }
         });
     });
