@@ -24,6 +24,7 @@ const friendName = friendNameWithExtension.split('.')[0];
 
 // --- NOUVEAU : Variables pour la limite d'interactions ---
 const MAX_INTERACTIONS_PER_FRIEND = 5; // Définis ta limite ici
+const MAX_RAGE_BAIT_CLICKS = 100; // Nouvelle limite pour le bouton "rage bait"
 const LOCAL_STORAGE_KEY_PREFIX = 'interactions_'; // Préfixe pour la clé localStorage
 
 // Fonction pour obtenir le nombre d'interactions locales pour cet ami
@@ -62,12 +63,17 @@ function loadEmojiCounts() {
     });
 }
 
-// Fonction pour incrémenter un compteur d'emoji
 function incrementEmojiCount(emojiId) {
     let currentLocalCount = getLocalInteractionsCount(friendName);
 
-    if (currentLocalCount >= MAX_INTERACTIONS_PER_FRIEND) {
-        alert(`Tu as déjà réagi ${MAX_INTERACTIONS_PER_FRIEND} fois pour ${friendName} ! Reviens plus tard.`);
+    // Détermine la limite à appliquer
+    let currentMaxLimit = MAX_INTERACTIONS_PER_FRIEND;
+    if (emojiId === 'ragebait') { // Si c'est le bouton "ragebait"
+        currentMaxLimit = MAX_RAGE_BAIT_CLICKS;
+    }
+
+    if (currentLocalCount >= currentMaxLimit) {
+        alert(`Tu as déjà réagi ${currentMaxLimit} fois pour ${friendName} ! Reviens plus tard.`);
         return; // Arrête la fonction si la limite est atteinte
     }
 
