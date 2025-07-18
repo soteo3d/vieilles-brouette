@@ -16,7 +16,7 @@ const firebaseConfig = {
 };
 // Initialise Firebase
 firebase.initializeApp(firebaseConfig);
-
+const analytics = getAnalytics(app);
 // Récupère une référence à la base de données
 const database = firebase.database();
 
