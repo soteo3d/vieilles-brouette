@@ -1,9 +1,4 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
+// La configuration de Firebase (assure-toi que ces valeurs sont exactes)
 const firebaseConfig = {
   apiKey: "AIzaSyDoEbsTM4b3ZoBrJliTout9yIcl8bs62so",
   authDomain: "vieilles-brouette.firebaseapp.com",
@@ -14,9 +9,13 @@ const firebaseConfig = {
   appId: "1:194696608467:web:d95710877f0e3d2849f226",
   measurementId: "G-9X5C4W7SKH"
 };
-// Initialise Firebase
-firebase.initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+// Initialise Firebase - C'est la bonne façon avec le SDK "compat"
+firebase.initializeApp(firebaseConfig); 
+// Note : Tu n'as plus besoin de 'const analytics = getAnalytics(app);' car tu n'as pas importé getAnalytics
+// ni de 'const app = initializeApp(firebaseConfig);'
+// La variable 'firebase' est déjà globale grâce aux scripts compat.js dans ton HTML.
+
 // Récupère une référence à la base de données
 const database = firebase.database();
 
@@ -102,15 +101,14 @@ function incrementEmojiCount(emojiId) {
 // Code exécuté une fois que le DOM est complètement chargé
 document.addEventListener('DOMContentLoaded', () => {
     // Charge les compteurs d'emojis au chargement de la page
-    // Cette fonction ne sera appelée que sur les pages d'amis, pas sur index.html
-    if (friendName && friendName !== "index" && friendName !== "aigris") { // Ajoute 'aigris' ici pour éviter les erreurs si la page d'accueil est nommée 'index.html'
+    // Cette fonction ne sera appelée que sur les pages d'amis et aigris
+    if (friendName && friendName !== "index") { // Si ce n'est pas la page d'accueil (index.html)
         loadEmojiCounts();
     }
-    // Pour la page aigris.html, loadEmojiCounts est aussi nécessaire
-    if (friendName === "aigris") {
-        loadEmojiCounts();
-    }
-
+    // Note : le `friendName !== "aigris"` a été retiré de la première condition
+    // car on veut que loadEmojiCounts s'exécute pour 'aigris' aussi.
+    // La condition `if (friendName === "aigris")` est désormais redondante et peut être supprimée
+    // si la première condition est `friendName !== "index"`.
 
     // Attache les écouteurs d'événements aux boutons d'emojis
     const emojiButtons = document.querySelectorAll('.emoji-button');
@@ -133,3 +131,4 @@ document.addEventListener('DOMContentLoaded', () => {
             // window.open(instagramButton.href, '_blank');
         });
     }
+});
